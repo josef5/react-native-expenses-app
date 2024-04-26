@@ -3,10 +3,10 @@ import React, { useLayoutEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import IconButton from "../components/ui/IconButton";
 import { GlobalStyles } from "../constants/styles";
-import { RootStackParamList } from "../types";
+import { NavigationScreenParamList } from "../types";
 import Button from "../components/ui/Button";
 
-type Props = NativeStackScreenProps<RootStackParamList, "ManageExpense">;
+type Props = NativeStackScreenProps<NavigationScreenParamList, "ManageExpense">;
 
 const ManageExpense = ({ route, navigation }: Props) => {
   const editedExpenseId = route.params?.expenseId;

@@ -3,12 +3,12 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../constants/styles";
-import { Expense, RootStackParamList } from "../types";
+import { Expense, NavigationScreenParamList } from "../types";
 
 const ExpenseItem = ({ id, description, date, amount }: Expense) => {
   const navigation =
     useNavigation<
-      NativeStackNavigationProp<RootStackParamList, "ManageExpense">
+      NativeStackNavigationProp<NavigationScreenParamList, "ManageExpense">
     >();
 
   function expensePressHandler() {

@@ -1,6 +1,7 @@
-export type RootStackParamList = {
-  RecentExpenses: undefined;
+export type NavigationScreenParamList = {
   ManageExpense: { expenseId: string };
+  ExpensesOverview: undefined;
+  RecentExpenses: undefined;
   AllExpenses: undefined;
 };
 

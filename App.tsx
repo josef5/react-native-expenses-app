@@ -9,9 +9,10 @@ import { GlobalStyles } from "./constants/styles";
 import AllExpenses from "./screens/AllExpenses";
 import ManageExpense from "./screens/ManageExpense";
 import RecentExpenses from "./screens/RecentExpenses";
+import { NavigationScreenParamList } from "./types";
 
-const Stack = createNativeStackNavigator();
-const BottomTabs = createBottomTabNavigator();
+const Stack = createNativeStackNavigator<NavigationScreenParamList>();
+const BottomTabs = createBottomTabNavigator<NavigationScreenParamList>();
 
 function ExpensesOverview() {
   return (
