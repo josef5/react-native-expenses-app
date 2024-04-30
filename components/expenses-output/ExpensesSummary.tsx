@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
-import { Expense } from "../types";
+import { GlobalStyles } from "../../constants/styles";
+import { Expense } from "../../types";
 
 const ExpensesSummary = ({
   expenses,

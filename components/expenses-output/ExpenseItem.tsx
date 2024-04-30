@@ -2,8 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { GlobalStyles } from "../constants/styles";
-import { Expense, NavigationScreenParamList } from "../types";
+import { GlobalStyles } from "../../constants/styles";
+import { Expense, NavigationScreenParamList } from "../../types";
 
 const ExpenseItem = ({ id, description, date, amount }: Expense) => {
   const navigation =
@@ -13,7 +13,7 @@ const ExpenseItem = ({ id, description, date, amount }: Expense) => {
 
   function expensePressHandler() {
     navigation.navigate("ManageExpense", {
-      expenseId: id,
+      expenseId: id!,
     });
   }
 
