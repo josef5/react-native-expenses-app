@@ -6,7 +6,7 @@ export type NavigationScreenParamList = {
 };
 
 export interface Expense {
-  id: string;
+  id?: string;
   description: string;
   amount: number;
   date: Date;
