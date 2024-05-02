@@ -6,6 +6,7 @@ import IconButton from "../components/ui/IconButton";
 import { GlobalStyles } from "../constants/styles";
 import { ExpensesContext } from "../store/expenses-context";
 import { Expense, NavigationScreenParamList } from "../types";
+import { storeExpense } from "../util/http";
 
 type Props = NativeStackScreenProps<NavigationScreenParamList, "ManageExpense">;
 
@@ -36,6 +37,7 @@ const ManageExpense = ({ route, navigation }: Props) => {
     if (isEditing) {
       updateExpense(editedExpenseId, expenseData);
     } else {
+      storeExpense(expenseData);
       addExpense(expenseData);
     }
 
