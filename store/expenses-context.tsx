@@ -1,42 +1,9 @@
 import React, { createContext, useReducer } from "react";
 import { Expense } from "../types";
-import { getDateMinusDays } from "../util/date";
-
-const DUMMY_EXPENSES: Expense[] = [
-  {
-    id: "e1",
-    description: "A pair of shoes",
-    amount: 59.99,
-    date: getDateMinusDays(new Date(), 2),
-  },
-  {
-    id: "e2",
-    description: "A pair of trousers",
-    amount: 89.95,
-    date: getDateMinusDays(new Date(), 5),
-  },
-  {
-    id: "e3",
-    description: "Some bananas",
-    amount: 5.99,
-    date: getDateMinusDays(new Date(), 12),
-  },
-  {
-    id: "e4",
-    description: "A book",
-    amount: 14.99,
-    date: getDateMinusDays(new Date(), 19),
-  },
-  {
-    id: "e5",
-    description: "Another book",
-    amount: 18.59,
-    date: getDateMinusDays(new Date(), 22),
-  },
-];
 
 export const ExpensesContext = createContext({
   expenses: [] as Expense[],
+  setExpenses: (expenses: Expense[]) => {},
   addExpense: ({ description, amount, date }: Expense) => {},
   updateExpense: (id: string, { description, amount, date }: Expense) => {},
   deleteExpense: (id: string) => {},
@@ -45,30 +12,42 @@ export const ExpensesContext = createContext({
 function expensesReducer(
   state: Expense[],
   action: {
-    type: "ADD" | "UPDATE" | "DELETE";
-    payload: Expense;
+    type: "SET" | "ADD" | "UPDATE" | "DELETE";
+    payload: Expense | Expense[];
   }
 ) {
   switch (action.type) {
+    case "SET":
+      return action.payload as Expense[];
+
     case "ADD":
       const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id }, ...state];
+      return [{ ...action.payload, id }, ...state] as Expense[];
+
     case "UPDATE":
       return state.map((expense) => {
-        if (expense.id === action.payload.id) {
-          return action.payload;
+        if (expense.id === (action.payload as Expense).id) {
+          return action.payload as Expense;
         }
         return expense;
       });
+
     case "DELETE":
-      return state.filter((expense) => expense.id !== action.payload.id);
+      return state.filter(
+        (expense) => expense.id !== (action.payload as Expense).id
+      );
+
     default:
       return state;
   }
 }
 
 function ExpensesContextProvider({ children }: React.PropsWithChildren<{}>) {
-  const [expensesState, dispatch] = useReducer(expensesReducer, DUMMY_EXPENSES);
+  const [expensesState, dispatch] = useReducer(expensesReducer, []);
+
+  function setExpenses(expenses: Expense[]) {
+    dispatch({ type: "SET", payload: expenses });
+  }
 
   function addExpense(expenseData: Expense) {
     dispatch({ type: "ADD", payload: expenseData });
@@ -87,6 +66,7 @@ function ExpensesContextProvider({ children }: React.PropsWithChildren<{}>) {
 
   const value = {
     expenses: expensesState,
+    setExpenses,
     addExpense,
     deleteExpense,
     updateExpense,
