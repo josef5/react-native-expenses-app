@@ -18,11 +18,10 @@ function expensesReducer(
 ) {
   switch (action.type) {
     case "SET":
-      return action.payload as Expense[];
+      return (action.payload as Expense[]).reverse();
 
     case "ADD":
-      const id = new Date().toString() + Math.random().toString();
-      return [{ ...action.payload, id }, ...state] as Expense[];
+      return [action.payload, ...state] as Expense[];
 
     case "UPDATE":
       return state.map((expense) => {
